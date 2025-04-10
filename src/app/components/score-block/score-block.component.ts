@@ -9,33 +9,72 @@ import { NgClass } from '@angular/common';
   styleUrls: ['./score-block.component.scss']
 })
 export class ScoreBlockComponent {
-  @Input() game!: any;
+  @Input()
+  game: {
+    home: {
+      alias: string;
+      name: string;
+      record: { wins: number; losses: number };
+    };
+    away: {
+      alias: string;
+      name: string;
+      record: { wins: number; losses: number };
+    };
+    scoring: {
+      home_points: number;
+      away_points: number;
+      periods: {
+        period_type: string;
+        number: number;
+        clock?: string;
+      }[];
+    } | null;
+    scheduled: string;
+    venue: {
+      name: string;
+      city: string;
+    };
+  } = {
+    home: { alias: '', name: '', record: { wins: 0, losses: 0 } },
+    away: { alias: '', name: '', record: { wins: 0, losses: 0 } },
+    scoring: null,
+    scheduled: '',
+    venue: { name: '', city: '' }
+  };
 
   getGameStatusText(): string {
-    if (this.game.scoring && !this.game.scoring.periods?.some((p: any) => p.clock)) {
+    const scoring = this.game.scoring;
+    const periods = scoring && scoring.periods;
+
+    if (scoring && periods && !periods.some((p) => p.clock)) {
       return 'FINAL';
     }
-    if (this.game.scoring?.periods?.some((p: any) => p.clock)) {
-      const last = this.game.scoring.periods.at(-1);
-      return `${last.period_type.toUpperCase()}${last.number} | ${last.clock ?? '--:--'}`;
+
+    if (scoring && periods && periods.some((p) => p.clock)) {
+      const last = periods[periods.length - 1];
+      const clock = last.clock !== undefined && last.clock !== null ? last.clock : '--:--';
+      return `${last.period_type.toUpperCase()}${last.number} | ${clock}`;
     }
+
     return 'UPCOMING';
   }
 
   getScoreColorClass(isHome: boolean): string {
     const status = this.getGameStatusText();
-  
+
     if (status.includes('Q') || status.includes('OT')) {
       return 'score-white';
     }
-  
-    if (!this.game.scoring || status !== 'FINAL') return '';
-    const h = this.game.scoring.home_points ?? 0;
-    const a = this.game.scoring.away_points ?? 0;
+
+    const scoring = this.game.scoring;
+    if (!scoring || status !== 'FINAL') return '';
+
+    const h = scoring.home_points !== undefined ? scoring.home_points : 0;
+    const a = scoring.away_points !== undefined ? scoring.away_points : 0;
     const isWinner = isHome ? h > a : a > h;
     return isWinner ? 'score-white' : 'score-gray';
   }
-  
 
   formatUpcomingDate(dateStr: string): string {
     const d = new Date(dateStr);
@@ -61,7 +100,7 @@ export class ScoreBlockComponent {
       day: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true,
+      hour12: true
     });
   }
 }

@@ -18,9 +18,8 @@
     </div>
   }
 
-  @if (getGameStatusText() !== 'UPCOMING') {
-    <div class="time">{{ formatGameTime(game.scheduled) }}</div>
-  }
-
-  <div class="venue">{{ game.venue.name }}, {{ game.venue.city }}</div>
+  <div class="venue">
+    <span class="venue-name">{{ game.venue.name }}</span>, {{ game.venue.city }}
+  </div>
+  
 </div>
