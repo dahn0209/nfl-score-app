@@ -1,0 +1,14 @@
+<select
+  #weekSelect
+  class="week-dropdown"
+  (change)="weekSelected.emit(weekSelect.value)"
+>
+  @for (week of weeks; track week) {
+    <option
+      [value]="week.title"
+      [selected]="week.title === selected"
+    >
+      Week {{ week.title }}
+    </option>
+  }
+</select>

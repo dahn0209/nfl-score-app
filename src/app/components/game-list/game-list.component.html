@@ -1,0 +1,30 @@
+<header class="title-section">
+  <img
+    src="https://upload.wikimedia.org/wikipedia/en/a/a2/National_Football_League_logo.svg"
+    alt="NFL Logo"
+    class="nfl-logo"
+  />
+  <h2>Schedule and Results</h2>
+</header>
+
+<week-dropdown
+  [weeks]="weeks"
+  [selected]="selectedWeekTitle"
+  (weekSelected)="selectWeek($event)"
+></week-dropdown>
+
+<week-tabs
+  [weeks]="weeks"
+  [selected]="selectedWeekTitle"
+  (weekSelected)="selectWeek($event)"
+></week-tabs>
+
+<div id="games-section" class="game-list">
+  @if (selectedWeekGames.length > 0) {
+    @for (game of selectedWeekGames; track game) {
+      <game-card [game]="game"></game-card>
+    }
+  } @else {
+    <p class="no-data">No games scheduled for this week.</p>
+  }
+</div>

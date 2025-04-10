@@ -1,0 +1,36 @@
+.title-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .nfl-logo {
+    width: 40px;
+    height: auto;
+  }
+}
+
+.game-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.no-data {
+  text-align: center;
+  color: #ccc;
+  font-size: 1rem;
+  padding: 2rem;
+}

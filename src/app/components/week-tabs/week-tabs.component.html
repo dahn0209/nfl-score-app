@@ -1,0 +1,10 @@
+<div class="week-tabs">
+  @for (week of weeks; track week) {
+    <button
+      (click)="weekSelected.emit(week.title)"
+      [class.active]="week.title === selected"
+    >
+      Week {{ week.title }}
+    </button>
+  }
+</div>

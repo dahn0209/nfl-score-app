@@ -1,0 +1,49 @@
+.score-block {
+  text-align: center;
+
+  .score {
+    font-size: 2rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .dash {
+      margin: 0 0.4rem;
+      color: #ccc;
+    }
+
+    .score-white {
+      color: white;
+    }
+
+    .score-gray {
+      color: #777;
+    }
+  }
+
+  .upcoming-date {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+  }
+
+  .upcoming-time {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 0.25rem;
+  }
+
+  .time {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-top: 0.4rem;
+  }
+
+  .venue {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 0.2rem;
+  }
+}
