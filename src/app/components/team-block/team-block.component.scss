@@ -1,8 +1,7 @@
-
-
 :host {
   display: flex;
   justify-content: center;
+  flex: 1;
 }
 
 .content {
@@ -38,13 +37,11 @@
   }
 }
 
-/* Flip logo and text for away (team-left) */
 :host(.team-left) .content {
   flex-direction: row-reverse;
   text-align: right;
 }
 
-/* Keep default left-to-right for home (team-right) */
 :host(.team-right) .content {
   flex-direction: row;
   text-align: left;

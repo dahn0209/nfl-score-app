@@ -1,3 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
 .score-block {
   text-align: center;
 
@@ -45,12 +53,10 @@
     font-size: 0.8rem;
     color: #777;
     margin-top: 0.2rem;
-  
+
     .venue-name {
       color: white;
       font-weight: 500;
     }
   }
-  
-
 }
