@@ -1,8 +1,11 @@
-<div class="team-column">
-  <div class="alias">{{ team.alias }}</div>
+
+<div class="content">
   <img [src]="getLogo(team.alias)" class="logo" />
-  <div class="name">{{ getLastName(team.name) }}</div>
-  <div class="record">
-    ({{ team.record.wins }} - {{ team.record.losses }})
+  <div class="text-block">
+    <div class="alias">{{ team.alias }}</div>
+    <div class="name">{{ getLastName(team.name) }}</div>
+    <div class="record">
+      ({{ team.record.wins }} - {{ team.record.losses }})
+    </div>
   </div>
 </div>

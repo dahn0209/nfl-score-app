@@ -1,28 +1,51 @@
-.team-column {
+
+
+:host {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
   align-items: center;
+  gap: 0.75rem;
 
   .logo {
     width: 48px;
     height: 48px;
     object-fit: contain;
-    margin-bottom: 0.4rem;
   }
 
-  .alias {
-    font-weight: bold;
-    font-size: 0.85rem;
-    color: white;
-  }
+  .text-block {
+    display: flex;
+    flex-direction: column;
 
-  .name {
-    font-size: 0.8rem;
-    color: #ccc;
-  }
+    .alias {
+      font-weight: bold;
+      font-size: 0.85rem;
+      color: white;
+    }
 
-  .record {
-    font-size: 0.75rem;
-    color: #999;
+    .name {
+      font-size: 0.8rem;
+      color: #ccc;
+    }
+
+    .record {
+      font-size: 0.75rem;
+      color: #999;
+    }
   }
+}
+
+/* Flip logo and text for away (team-left) */
+:host(.team-left) .content {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+/* Keep default left-to-right for home (team-right) */
+:host(.team-right) .content {
+  flex-direction: row;
+  text-align: left;
 }

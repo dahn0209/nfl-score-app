@@ -4,8 +4,10 @@
   </div>
 
   <div class="team-score-row">
-    <team-block [team]="game.away"></team-block>
-    <score-block [game]="game"></score-block>
-    <team-block [team]="game.home"></team-block>
+<team-block [team]="game.away" class="team-column team-left"></team-block>
+<score-block [game]="game"></score-block>
+<team-block [team]="game.home" class="team-column team-right"></team-block>
+
+
   </div>
 </div>
