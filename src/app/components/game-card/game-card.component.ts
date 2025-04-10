@@ -14,17 +14,32 @@ export class GameCardComponent {
   @Input() game!: any;
 
   getGameStatusText(): string {
-    if (this.game.scoring && !this.game.scoring.periods?.some((p: any) => p.clock)) return 'FINAL';
-    if (this.game.scoring?.periods?.some((p: any) => p.clock)) {
-      const last = this.game.scoring.periods.at(-1);
-      return `${last.period_type.toUpperCase()}${last.number} | ${last.clock ?? '--:--'}`;
+    const hasScoring = this.game.scoring;
+    const periods = hasScoring && this.game.scoring.periods;
+
+    const livePeriod = periods && periods.find((p: any) => p.clock);
+
+    if (hasScoring && periods && !livePeriod) {
+      return 'FINAL';
     }
+
+    if (hasScoring && periods && livePeriod) {
+      const last = periods[periods.length - 1];
+      const clock = last.clock ?? '--:--';
+      return `${last.period_type.toUpperCase()}${last.number} | ${clock}`;
+    }
+
     return 'UPCOMING';
   }
 
   getGameStatusClass(): string {
-    if (this.game.scoring && !this.game.scoring.periods?.some((p: any) => p.clock)) return 'final';
-    if (this.game.scoring?.periods?.some((p: any) => p.clock)) return 'live';
+    const hasScoring = this.game.scoring;
+    const periods = hasScoring && this.game.scoring.periods;
+
+    const livePeriod = periods && periods.find((p: any) => p.clock);
+
+    if (hasScoring && periods && !livePeriod) return 'final';
+    if (hasScoring && periods && livePeriod) return 'live';
     return 'upcoming';
   }
 }
