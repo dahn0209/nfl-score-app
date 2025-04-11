@@ -1,9 +1,8 @@
 <div class="game-card">
   <div class="team-score-row">
-    <!-- Away Team -->
+    
     <team-block [team]="game.away" class="team-left"></team-block>
 
-    <!-- Center Block (Status Badge + Score Block) -->
     <div class="center-block">
       <div class="status-badge" [ngClass]="getGameStatusClass()">
         {{ getGameStatusText() }}
@@ -11,7 +10,6 @@
       <score-block [game]="game"></score-block>
     </div>
 
-    <!-- Home Team -->
     <team-block [team]="game.home" class="team-right"></team-block>
   </div>
 </div>
