@@ -1,12 +1,17 @@
 <div class="game-card">
-  <div class="status-badge" [ngClass]="getGameStatusClass()">
-    {{ getGameStatusText() }}
-  </div>
-
   <div class="team-score-row">
-    <team-block [team]="game.away" class="team-column team-left"></team-block>
-    <score-block [game]="game"></score-block>
-    <team-block [team]="game.home" class="team-column team-right"></team-block>
+    <!-- Away Team -->
+    <team-block [team]="game.away" class="team-left"></team-block>
+
+    <!-- Center Block (Status Badge + Score Block) -->
+    <div class="center-block">
+      <div class="status-badge" [ngClass]="getGameStatusClass()">
+        {{ getGameStatusText() }}
+      </div>
+      <score-block [game]="game"></score-block>
+    </div>
+
+    <!-- Home Team -->
+    <team-block [team]="game.home" class="team-right"></team-block>
   </div>
-  
 </div>

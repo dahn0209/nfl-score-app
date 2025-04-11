@@ -7,19 +7,25 @@
       {{ formatUpcomingTime(game.scheduled) }}
     </div>
   } @else {
-    <div class="score">
-      <span [ngClass]="getScoreColorClass(false)">
-        {{ game.scoring.away_points }}
-      </span>
-      <span class="dash">–</span>
-      <span [ngClass]="getScoreColorClass(true)">
-        {{ game.scoring.home_points }}
-      </span>
-    </div>
+    @if (game.scoring) {
+      <div class="score">
+        <span [ngClass]="getScoreColorClass(false)">
+          {{ game.scoring.away_points }}
+        </span>
+        <span class="dash">–</span>
+        <span [ngClass]="getScoreColorClass(true)">
+          {{ game.scoring.home_points }}
+        </span>
+      </div>
+    }
+  }
+
+  @if (getGameStatusText() !== 'UPCOMING') {
+    <div class="time">{{ formatGameTime(game.scheduled) }}</div>
   }
 
   <div class="venue">
     <span class="venue-name">{{ game.venue.name }}</span>, {{ game.venue.city }}
   </div>
-  
 </div>
+
