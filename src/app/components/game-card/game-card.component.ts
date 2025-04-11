@@ -3,6 +3,28 @@ import { NgClass } from '@angular/common';
 import { TeamBlockComponent } from '../team-block/team-block.component';
 import { ScoreBlockComponent } from '../score-block/score-block.component';
 
+interface Team {
+  alias: string;
+  name: string;
+  record: { wins: number; losses: number };
+}
+
+interface Game {
+  home: Team;
+  away: Team;
+  scoring: {
+    home_points: number;
+    away_points: number;
+    periods: {
+      period_type: string;
+      number: number;
+      clock?: string;
+    }[];
+  } | null;
+  scheduled: string;
+  venue: { name: string; city: string };
+}
+
 @Component({
   selector: 'game-card',
   standalone: true,
@@ -11,19 +33,23 @@ import { ScoreBlockComponent } from '../score-block/score-block.component';
   styleUrls: ['./game-card.component.scss']
 })
 export class GameCardComponent {
-  @Input() game!: any;
+  @Input()
+  game: Game = {
+    home: { alias: '', name: '', record: { wins: 0, losses: 0 } },
+    away: { alias: '', name: '', record: { wins: 0, losses: 0 } },
+    scoring: null,
+    scheduled: '',
+    venue: { name: '', city: '' }
+  };
 
   getGameStatusText(): string {
-    const hasScoring = this.game.scoring;
-    const periods = hasScoring && this.game.scoring.periods;
+    const scoring = this.game.scoring;
+    const periods = scoring && scoring.periods;
+    const livePeriod = periods && periods.find((p) => p.clock);
 
-    const livePeriod = periods && periods.find((p: any) => p.clock);
+    if (scoring && periods && !livePeriod) return 'FINAL';
 
-    if (hasScoring && periods && !livePeriod) {
-      return 'FINAL';
-    }
-
-    if (hasScoring && periods && livePeriod) {
+    if (scoring && periods && livePeriod) {
       const last = periods[periods.length - 1];
       const clock = last.clock ?? '--:--';
       return `${last.period_type.toUpperCase()}${last.number} | ${clock}`;
@@ -33,13 +59,12 @@ export class GameCardComponent {
   }
 
   getGameStatusClass(): string {
-    const hasScoring = this.game.scoring;
-    const periods = hasScoring && this.game.scoring.periods;
+    const scoring = this.game.scoring;
+    const periods = scoring && scoring.periods;
+    const livePeriod = periods && periods.find((p) => p.clock);
 
-    const livePeriod = periods && periods.find((p: any) => p.clock);
-
-    if (hasScoring && periods && !livePeriod) return 'final';
-    if (hasScoring && periods && livePeriod) return 'live';
+    if (scoring && periods && !livePeriod) return 'final';
+    if (scoring && periods && livePeriod) return 'live';
     return 'upcoming';
   }
 }
